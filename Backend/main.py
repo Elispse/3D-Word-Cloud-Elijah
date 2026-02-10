@@ -29,7 +29,29 @@ def fetch_text(url: str) -> str:
 
 # Extract top keywords and normalize weights
 def extract_keywords(text: str, top_n: int = 50):
-    return
+    vectorizer = TfidfVectorizer(stop_words="english")
+    X = vectorizer.fit_transform([text])
+    feature_names = vectorizer.get_feature_names_out()
+    scores = X.toarray()[0]
+
+    # Pair words with scores
+    word_scores = list(zip(feature_names, scores))
+    word_scores.sort(key=lambda x: x[1], reverse=True)
+
+    # Take top N words
+    top_words = word_scores[:top_n]
+
+    if not top_words:
+        return []
+
+    max_score = top_words[0][1]
+    normalized = []
+    for word, score in top_words:
+        # Normalize relative to max, scaled 1–10
+        weight = max(1.0, 10 * (score / max_score))
+        normalized.append({"word": word, "weight": round(weight, 2)})
+    return normalized
+
 
 # API endpoint
 @app.post("/analyze")
