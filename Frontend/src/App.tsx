@@ -67,7 +67,7 @@ const [words, setWords] = useState<WordType[]>([]);
         <pointLight position={[10, 10, 10]} />
         
         {/* Render word cloud if words exist */}
-        {words.length > 0 && <WordCloud words={words} radius={5} />}
+        {words.length > 0 && <WordCloud words={words} />}
       </Canvas>
     </div>
   );
