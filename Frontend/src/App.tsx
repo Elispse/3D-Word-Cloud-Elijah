@@ -62,7 +62,7 @@ const [words, setWords] = useState<WordType[]>([]);
       {/* Pass setWords down so the button can update state */}
       <TextBoxButton setWords={setWords} />
 
-      <Canvas className='full-canvas'>
+      <Canvas className='full-canvas' camera={{position: [0, 0, 10], fov:90}}>
         <ambientLight intensity={0.5} />
         <pointLight position={[10, 10, 10]} />
         
