@@ -19,8 +19,8 @@ const TextBoxButton: React.FC<TextBoxButtonProps> = ({ setWords }) => {
   };
 
   return (
-    <div>
-      <input type="text" ref={inputRef} placeholder="Type something..." />
+    <div className="top-center-container">
+      <input type="text" ref={inputRef} placeholder="Type URL..." />
       <button onClick={handleButtonClick}>Submit</button>
     </div>
   );

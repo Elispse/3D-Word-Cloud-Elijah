@@ -3,6 +3,8 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { Mesh } from 'three';
 import TextBoxButton from "./Components/TextBox&Button";
 import WordCloud from './Components/WordCloud';
+import "./App.css"
+
 const API_URL = import.meta.env.VITE_API_URL;
 
 export type WordType = {
@@ -56,18 +58,18 @@ const App = () => {
 const [words, setWords] = useState<WordType[]>([]);
 
   return (
-    <>
+    <div className='app-container'>
       {/* Pass setWords down so the button can update state */}
       <TextBoxButton setWords={setWords} />
 
-      <Canvas>
+      <Canvas className='full-canvas'>
         <ambientLight intensity={0.5} />
         <pointLight position={[10, 10, 10]} />
         
         {/* Render word cloud if words exist */}
         {words.length > 0 && <WordCloud words={words} radius={5} />}
       </Canvas>
-    </>
+    </div>
   );
 };
 
