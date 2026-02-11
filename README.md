@@ -47,3 +47,6 @@ node setup.js
 4. Change the environment variable in .env in the frontend.
     When deploying the backend pay attention to uvicorns running url.
     Change the env variable VITE_API_URL to your Uvicorn url.
+
+## **Notes**
+Used AI to help make comments and help resolve errors
