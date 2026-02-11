@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Mesh } from 'three';
 import TextBoxButton from "./Components/TextBox&Button";
+import WordCloud from './Components/WordCloud';
 const API_URL = import.meta.env.VITE_API_URL;
 
-type WordType = {
+export type WordType = {
     word: string;
     weight: number; 
 }
@@ -31,8 +32,7 @@ const Box = () => {
 // this function fetches the json list of words and their associated weights
 export async function fetchWordCloud(url: string): Promise<WordType[]> {
   try {
-    console.log("Function Reached!")
-    const response = await fetch(`${API_URL}/analyze`, { // replace with your backend URL
+    const response = await fetch(`${API_URL}/analyze`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -43,9 +43,7 @@ export async function fetchWordCloud(url: string): Promise<WordType[]> {
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-    console.log("ResponseFetched")
     const data: WordType[] = await response.json();
-    console.log(data)
     return data;
   } catch (error) {
     console.error("Error fetching word cloud:", error);
@@ -55,14 +53,19 @@ export async function fetchWordCloud(url: string): Promise<WordType[]> {
 
 
 const App = () => {
+const [words, setWords] = useState<WordType[]>([]);
+
   return (
     <>
-      <TextBoxButton />
+      {/* Pass setWords down so the button can update state */}
+      <TextBoxButton setWords={setWords} />
+
       <Canvas>
         <ambientLight intensity={0.5} />
         <pointLight position={[10, 10, 10]} />
-        <Box />
         
+        {/* Render word cloud if words exist */}
+        {words.length > 0 && <WordCloud words={words} radius={5} />}
       </Canvas>
     </>
   );
