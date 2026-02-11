@@ -9,9 +9,10 @@ type WordProps = {
   word: string;
   weight: number;
   position: [number, number, number];
+  color: string;
 };
 
-export default function Word({ word, weight, position }: WordProps) {
+export default function Word({ word, weight, position, color }: WordProps) {
   const ref = useRef<Mesh>(null!);
   const floatSpeed = 0.5 + Math.random(); // random float speed
   const floatAmplitude = 0.2 + Math.random() * 0.5; // float distance
@@ -30,7 +31,7 @@ export default function Word({ word, weight, position }: WordProps) {
       ref={ref}
       position={position}
       fontSize={weight * 0.2} // scale size by weight
-      color="orange"
+      color={color}
       anchorX="center"
       anchorY="middle"
     >

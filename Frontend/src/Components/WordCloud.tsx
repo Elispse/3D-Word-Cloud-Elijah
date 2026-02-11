@@ -1,5 +1,6 @@
 import Word from "./WordComp";
 import type { WordType } from "../App";
+import { weightToColor } from "../Utilities/Utils";
 
 type WordCloudProps = {
   words: WordType[];
@@ -7,6 +8,11 @@ type WordCloudProps = {
 };
 
 export default function WordCloud({ words, radius = 5 }: WordCloudProps) {
+
+  const minWeight = Math.min(...words.map(w => w.weight));
+  const maxWeight = Math.max(...words.map(w => w.weight));
+
+  
   return (
     <>
       {words.map((w, i) => {
@@ -17,7 +23,7 @@ export default function WordCloud({ words, radius = 5 }: WordCloudProps) {
         const y = radius * Math.sin(phi) * Math.sin(theta);
         const z = radius * Math.cos(phi);
 
-        return <Word key={i} word={w.word} weight={w.weight} position={[x, y, z]} />;
+        return <Word key={i} word={w.word} weight={w.weight} position={[x, y, z]} color={weightToColor(w.weight, minWeight, maxWeight)} />;
       })}
     </>
   );
