@@ -4,8 +4,17 @@ from fastapi.responses import JSONResponse
 import requests
 from bs4 import BeautifulSoup
 from sklearn.feature_extraction.text import TfidfVectorizer
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # allow any origin
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Request body
 class AnalyzeRequest(BaseModel):
